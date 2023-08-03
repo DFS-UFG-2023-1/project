@@ -1,0 +1,8 @@
+html {
+    background-color: #F3F3F3;
+}
+
+vaadin-button::part(part) {
+    text-align: left;
+    border: 1px solid red;
+}
