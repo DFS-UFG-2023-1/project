@@ -6,21 +6,29 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
+
+import java.io.Serial;
 
 import static br.ufg.nocurriculum.extensions.ComponentBuilder.*;
 
 @Route("")
-public class HomeView extends HorizontalLayout {
+@RouteAlias("home")
+@UIScope
+@SpringComponent
+public class HomeView extends StickedHeaderView {
+
+    @Serial
+    private static final long serialVersionUID = -3501106479253486877L;
 
     public HomeView() {
-
         var welcome = $(new FlexLayout())
             .add(
-                $(new H2())
-                    .text("no-curriculum")
-                    .margin("1em 2em")
-                    .build(),
                 $(new FlexLayout())
                     .add(
                         $(new H1())
@@ -41,7 +49,7 @@ public class HomeView extends HorizontalLayout {
                     .build(),
                 new Div()
             )
-            .marginRight("2rem")
+            .margin("auto")
             .widthFull()
             .justifyBetween()
             .columnDirection()
@@ -51,25 +59,24 @@ public class HomeView extends HorizontalLayout {
             .add(
                 $(new FlexLayout())
                     .add(
-                        new Paragraph("Inscreva-se"),
-                        $(new FlexLayout())
-                            .add(
-                                $(new Button())
-                                    .text("Continuar com Facebook")
-                                    .widthFull()
-                                    .build(),
-                                $(new Button())
-                                    .text("Continuar com Google")
-                                    .widthFull()
-                                    .build()
-                            )
-                            .columnDirection()
-                            .alignStart()
-                            .alignContentStart()
+                        $(new EmailField())
+                            .label("E-mail")
+                            .autocompleteOff()
                             .build(),
-                        new Hr(),
-                        new Span("ou"),
-                        new Button("Continue com um e-mail")
+                        $(new PasswordField())
+                            .label("Senha")
+                            .autocompleteOff()
+                            .build(),
+                        $(new Button())
+                            .text("Login")
+                            .build(),
+                        $(new Span("ou"))
+                            .classNames("hr-lines")
+                            .build(),
+                        $(new Button())
+                            .navigateTo("signup")
+                            .text("Inscreva-se")
+                            .build()
                     )
                     .backgroundColor("#FFF")
                     .borderRadius("0.50em")
@@ -79,7 +86,11 @@ public class HomeView extends HorizontalLayout {
                     .alignCenter()
                     .columnDirection()
                     .build(),
-                new Span("Saiba mais")
+                $(new Button())
+                    .text("Saiba mais")
+                    .suffix(new Icon(VaadinIcon.CHEVRON_CIRCLE_RIGHT))
+                    .tertiary()
+                    .build()
             )
             .alignCenter()
             .columnDirection()
@@ -87,8 +98,14 @@ public class HomeView extends HorizontalLayout {
             .widthFull()
             .build();
 
-        setSizeFull();
-        setJustifyContentMode(JustifyContentMode.AROUND);
-        add(welcome, sign);
+        setContent(
+            $(new HorizontalLayout())
+                .sizeFull()
+                .add(welcome, sign)
+                .build()
+        );
+
     }
 }
+
+

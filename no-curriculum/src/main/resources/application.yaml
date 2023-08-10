@@ -5,25 +5,14 @@ logging:
 server:
   port: ${PORT:8080}
 spring:
-  #  datasource:
-  #    url: jdbc:postgresql://localhost:5432/no_curriculum
-  #    username: postgres
-  #    password: postgres
   datasource:
-    url: jdbc:sqlite:no_curriculum.db
-    driver-class-name: org.sqlite.JDBC
-    type: org.springframework.jdbc.datasource.SimpleDriverDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/no_curriculum
+    password: postgres
+    username: postgres
   jpa:
-    #    properties:
-    #      hibernate:
-    #        dialect: org.hibernate.dialect.PostgreSQLDialect
-    database-platform: org.hibernate.community.dialect.SQLiteDialect
-    show-sql: true
     hibernate:
-      ddl-auto: update # Hibernate ddl auto (create, create-drop, validate, update)
-    defer-datasource-initialization: true
-  mustache:
-    check-template-location: false
+      ddl-auto: update
 vaadin:
   launch-browser: true
   whitelisted-packages: com.vaadin,org.vaadin,dev.hilla,com.flowingcode

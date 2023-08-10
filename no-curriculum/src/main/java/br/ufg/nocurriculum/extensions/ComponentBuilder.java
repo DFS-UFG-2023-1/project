@@ -1,14 +1,17 @@
 package br.ufg.nocurriculum.extensions;
 
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.HasComponents;
-import com.vaadin.flow.component.HasSize;
-import com.vaadin.flow.component.HasText;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.shared.HasSuffix;
+import com.vaadin.flow.component.textfield.Autocomplete;
+import com.vaadin.flow.component.textfield.HasAutocomplete;
+import com.vaadin.flow.component.textfield.TextFieldBase;
 
 public class ComponentBuilder<T extends Component> {
 
@@ -22,17 +25,99 @@ public class ComponentBuilder<T extends Component> {
         return new ComponentBuilder<>(component);
     }
 
-    public ComponentBuilder<T> add(Component ... components) {
+    public ComponentBuilder<T> add(Component... components) {
         if (component instanceof HasComponents comp) {
             comp.add(components);
         }
         return this;
     }
 
+    public ComponentBuilder<T> clickListener(ComponentEventListener<ClickEvent<Button>> listener) {
+        if (component instanceof Button comp) {
+            comp.addClickListener(listener);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> closeActionOK() {
+        return closeAction("ok");
+    }
+
+    public ComponentBuilder<T> closeActionOK(String navigateTo) {
+        return closeAction("ok", navigateTo);
+    }
+
+    public ComponentBuilder<T> closeAction(String label) {
+        if (component instanceof Dialog comp) {
+            var btn = new Button(label);
+            comp.add(btn);
+
+            btn.addClickListener(e -> comp.close());
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> closeAction(String label, String navigateTo) {
+        if (component instanceof Dialog comp) {
+            var btn = $(new Button())
+                .text(label)
+                .navigateTo(navigateTo)
+                .clickListener(e -> comp.close())
+                .build();
+
+            comp.add(btn);
+        }
+        return this;
+    }
+
     public ComponentBuilder<T> text(String value) {
         if (component instanceof HasText comp) {
-           comp.setText(value);
+            comp.setText(value);
         }
+        return this;
+    }
+
+    public ComponentBuilder<T> label(String value) {
+        if (component instanceof HasLabel comp) {
+            comp.setLabel(value);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> suffix(Component element) {
+        if (component instanceof HasSuffix comp) {
+            comp.setSuffixComponent(element);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> tertiary() {
+        if (component instanceof Button comp) {
+            comp.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> navigateTo(String route) {
+        if (component instanceof Button comp) {
+            comp.addClickListener(e ->
+                comp.getUI().ifPresent(ui ->
+                    ui.navigate(route)
+                )
+            );
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> autocompleteOff() {
+        if (component instanceof HasAutocomplete comp) {
+            comp.setAutocomplete(Autocomplete.OFF);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> classNames(String... names) {
+        component.addClassNames(names);
         return this;
     }
 
@@ -48,11 +133,6 @@ public class ComponentBuilder<T extends Component> {
 
     public ComponentBuilder<T> borderRadius(String value) {
         component.getStyle().set("border-radius", value);
-        return this;
-    }
-
-    public ComponentBuilder<T> border(String value) {
-        component.getStyle().set("border", value);
         return this;
     }
 
@@ -80,6 +160,20 @@ public class ComponentBuilder<T extends Component> {
         return this;
     }
 
+    public ComponentBuilder<T> heightFull() {
+        if (component instanceof HasSize comp) {
+            comp.setHeightFull();
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> sizeFull() {
+        if (component instanceof HasSize comp) {
+            comp.setSizeFull();
+        }
+        return this;
+    }
+
     public ComponentBuilder<T> icon(VaadinIcon icon) {
         if (component instanceof Button comp) {
             comp.setIcon(new Icon(icon));
@@ -87,16 +181,24 @@ public class ComponentBuilder<T extends Component> {
         return this;
     }
 
-    public ComponentBuilder<T> iconAfterText() {
-        if (component instanceof Button comp) {
-            comp.setIconAfterText(true);
+    public ComponentBuilder<T> placeholder(String placeholder) {
+        if (component instanceof TextFieldBase<?, ?> comp) {
+            comp.setPlaceholder(placeholder);
         }
         return this;
     }
 
+
     public ComponentBuilder<T> justifyBetween() {
         if (component instanceof FlexComponent comp) {
             comp.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> justifyEvenly() {
+        if (component instanceof FlexComponent comp) {
+            comp.setJustifyContentMode(FlexComponent.JustifyContentMode.EVENLY);
         }
         return this;
     }
@@ -112,19 +214,8 @@ public class ComponentBuilder<T extends Component> {
         if (component instanceof FlexComponent comp) {
             comp.setAlignItems(FlexComponent.Alignment.CENTER);
         }
-        return this;
-    }
-
-    public ComponentBuilder<T> alignStart() {
-        if (component instanceof FlexComponent comp) {
-            comp.setAlignItems(FlexComponent.Alignment.START);
-        }
-        return this;
-    }
-
-    public ComponentBuilder<T> alignContentStart() {
-        if (component instanceof FlexLayout comp) {
-            comp.setAlignContent(FlexLayout.ContentAlignment.START);
+        if (component instanceof HasText) {
+            component.getStyle().set("text-align", "center");
         }
         return this;
     }

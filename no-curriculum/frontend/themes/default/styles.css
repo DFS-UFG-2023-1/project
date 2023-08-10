@@ -1,8 +1,36 @@
-html {
-    background-color: #F3F3F3;
+html,
+vaadin-app-layout::part(navbar) {
+    background: #F3F3F3;
 }
 
-vaadin-button::part(part) {
-    text-align: left;
-    border: 1px solid red;
+.hr-lines {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.hr-lines:before,
+.hr-lines:after {
+    content: "";
+    height: 2px;
+    width: 130px;
+    background: #F3F3F3;
+    display: block;
+    position: absolute;
+    top: 50%;
+
+}
+
+.hr-lines:before {
+    left: 0;
+}
+
+.hr-lines:after {
+    right: 0;
+}
+
+vaadin-icon.title {
+    color: #41FAAA;
+    font-size: 40px;
 }
