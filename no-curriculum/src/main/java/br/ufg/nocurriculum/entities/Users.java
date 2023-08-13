@@ -14,7 +14,7 @@ import java.util.Set;
 public class Users {
 
     @Id
-    @Column(name = "username", nullable = false, updatable = false, length = 50)
+    @Column(name = "username", nullable = false, updatable = false)
     private String username;
 
     @Column(name = "password", nullable = false, length = 500)
@@ -26,10 +26,13 @@ public class Users {
     @OneToMany(mappedBy = "username", cascade = CascadeType.ALL)
     private Set<Authorities> authorities;
 
-    public Users(String username, String password) {
+    private transient String role;
+
+    public Users(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.enabled = true;
-        this.authorities = Set.of(new Authorities("DEFAULT"));
+        this.role = role;
     }
+
 }

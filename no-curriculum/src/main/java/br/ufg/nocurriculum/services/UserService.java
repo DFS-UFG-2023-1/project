@@ -1,20 +1,26 @@
 package br.ufg.nocurriculum.services;
 
 import br.ufg.nocurriculum.entities.Users;
-import br.ufg.nocurriculum.repositories.user.UserRepository;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final UserDetailsManager manager;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserDetailsManager manager) {
+        this.manager = manager;
     }
 
-    public void save(Users user) {
-        userRepository.save(user);
+    public void create(Users user) {
+        var userDetails = User.builder()
+            .username(user.getUsername())
+            .password(user.getPassword())
+            .roles(user.getRole())
+            .build();
+        manager.createUser(userDetails);
     }
 
 }
