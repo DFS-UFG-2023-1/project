@@ -34,3 +34,35 @@ vaadin-icon.title {
     color: #41FAAA;
     font-size: 40px;
 }
+
+.category-card-title {
+    border-radius: 15px;
+    background-color: #ebebeb;
+    height: 80px;
+    width: 300px;
+    text-align: center;
+    padding: 10px;
+}
+
+.category-card-title:hover {
+    cursor: pointer;
+    background-color: #e2e2e2;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 32%;
+    max-width: 300px;
+    margin-bottom: 2%;
+    position: relative;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.container {
+    padding: 2px 16px;
+}

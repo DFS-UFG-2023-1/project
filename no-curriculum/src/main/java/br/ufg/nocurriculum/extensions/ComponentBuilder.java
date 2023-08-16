@@ -8,6 +8,8 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.shared.HasClearButton;
+import com.vaadin.flow.component.shared.HasPrefix;
 import com.vaadin.flow.component.shared.HasSuffix;
 import com.vaadin.flow.component.textfield.Autocomplete;
 import com.vaadin.flow.component.textfield.HasAutocomplete;
@@ -91,6 +93,20 @@ public class ComponentBuilder<T extends Component> {
         return this;
     }
 
+    public ComponentBuilder<T> prefix(Component element) {
+        if (component instanceof HasPrefix comp) {
+            comp.setPrefixComponent(element);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> clearButtonEnable() {
+        if (component instanceof HasClearButton comp) {
+            comp.setClearButtonVisible(true);
+        }
+        return this;
+    }
+
     public ComponentBuilder<T> tertiary() {
         if (component instanceof Button comp) {
             comp.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
@@ -153,6 +169,13 @@ public class ComponentBuilder<T extends Component> {
         return this;
     }
 
+    public ComponentBuilder<T> width(String value) {
+        if (component instanceof HasSize comp) {
+            comp.setWidth(value);
+        }
+        return this;
+    }
+
     public ComponentBuilder<T> widthFull() {
         if (component instanceof HasSize comp) {
             comp.setWidthFull();
@@ -196,9 +219,30 @@ public class ComponentBuilder<T extends Component> {
         return this;
     }
 
+    public ComponentBuilder<T> justifyAround() {
+        if (component instanceof FlexComponent comp) {
+            comp.setJustifyContentMode(FlexComponent.JustifyContentMode.AROUND);
+        }
+        return this;
+    }
+
     public ComponentBuilder<T> justifyEvenly() {
         if (component instanceof FlexComponent comp) {
             comp.setJustifyContentMode(FlexComponent.JustifyContentMode.EVENLY);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> justifyEnd() {
+        if (component instanceof FlexComponent comp) {
+            comp.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+        }
+        return this;
+    }
+
+    public ComponentBuilder<T> flexWrap() {
+        if (component instanceof FlexLayout comp) {
+            comp.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         }
         return this;
     }

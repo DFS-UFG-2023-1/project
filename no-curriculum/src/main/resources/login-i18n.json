@@ -1,0 +1,13 @@
+{
+  "form": {
+    "title": "Log in",
+    "username": "E-mail",
+    "password": "Senha",
+    "submit": "Entrar",
+    "forgotPassword": "Esqueceu senha?"
+  },
+  "errorMessage": {
+    "title": "E-mail ou senha incorretos",
+    "message": "Verifique se informou corretamente o e-mail e senha e tente novamente."
+  }
+}

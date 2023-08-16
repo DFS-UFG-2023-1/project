@@ -40,7 +40,6 @@
             <artifactId>vaadin</artifactId>
         </dependency>
 
-
         <!--Database Dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,6 +53,11 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-community-dialects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-utils-hibernate-62</artifactId>
+            <version>3.5.0</version>
         </dependency>
 
         <dependency>
