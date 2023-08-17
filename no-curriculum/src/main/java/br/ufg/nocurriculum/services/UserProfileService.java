@@ -1,7 +1,8 @@
 package br.ufg.nocurriculum.services;
 
 import br.ufg.nocurriculum.entities.UserProfile;
-import br.ufg.nocurriculum.repositories.UserProfileRepository;
+import br.ufg.nocurriculum.repositories.jdbc.UserProfileJdbcRepository;
+import br.ufg.nocurriculum.repositories.jpa.UserProfileRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,25 +10,31 @@ import java.util.List;
 @Service
 public class UserProfileService {
 
-    private final UserProfileRepository repository;
+    private final UserProfileRepository jpaRepository;
+    private final UserProfileJdbcRepository jdbcRepository;
 
-    public UserProfileService(UserProfileRepository repository) {
-        this.repository = repository;
+    public UserProfileService(UserProfileRepository jpaRepository, UserProfileJdbcRepository jdbcRepository) {
+        this.jpaRepository = jpaRepository;
+        this.jdbcRepository = jdbcRepository;
     }
 
     public void save(UserProfile userProfile) {
-        repository.save(userProfile);
+        jpaRepository.save(userProfile);
     }
 
-    public UserProfile getByEmail(String email) {
-        return repository.findByEmail(email);
+    public UserProfile getByUsername(String username) {
+        return jpaRepository.findByUser_Username(username);
     }
 
     public List<UserProfile> all() {
-        return repository.findByVisibleIsTrue();
+        return jpaRepository.findByVisibleIsTrue();
     }
 
-    public  List<UserProfile> filterByStringColumns(String value) {
-        return repository.filterByStringColumns(value);
+    public List<UserProfile> getTalentsByTerm(String value) {
+        return jdbcRepository.getTalentsByTerm(value);
+    }
+
+    public List<UserProfile> getTalentsBySegmentName(String name) {
+        return jdbcRepository.getTalentsBySegment(name);
     }
 }

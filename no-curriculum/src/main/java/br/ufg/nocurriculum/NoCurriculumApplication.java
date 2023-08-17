@@ -1,8 +1,8 @@
 package br.ufg.nocurriculum;
 
 import br.ufg.nocurriculum.entities.*;
-import br.ufg.nocurriculum.repositories.DefaultProfessionRepository;
-import br.ufg.nocurriculum.repositories.ProfessionSegmentRepository;
+import br.ufg.nocurriculum.repositories.jpa.DefaultProfessionRepository;
+import br.ufg.nocurriculum.repositories.jdbc.ProfessionSegmentJdbcRepository;
 import br.ufg.nocurriculum.services.UserService;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
@@ -22,12 +22,10 @@ public class NoCurriculumApplication implements AppShellConfigurator, CommandLin
 
     private final UserService userService;
     private final DefaultProfessionRepository defaultProfessionRepository;
-    private final ProfessionSegmentRepository professionSegmentRepository;
 
-    public NoCurriculumApplication(UserService userService, DefaultProfessionRepository defaultProfessionRepository, ProfessionSegmentRepository professionSegmentRepository) {
+    public NoCurriculumApplication(UserService userService, DefaultProfessionRepository defaultProfessionRepository) {
         this.userService = userService;
         this.defaultProfessionRepository = defaultProfessionRepository;
-        this.professionSegmentRepository = professionSegmentRepository;
     }
 
     public static void main(String[] args) {
@@ -51,7 +49,7 @@ public class NoCurriculumApplication implements AppShellConfigurator, CommandLin
         userService.save(admin, adminProfile, List.of());
 
         var mateus = Users.builder()
-            .username("mateus.voltolim@gmail.om")
+            .username("mateus.voltolim@gmail.com")
             .password("mateus")
             .role("USER")
             .build();
@@ -64,7 +62,7 @@ public class NoCurriculumApplication implements AppShellConfigurator, CommandLin
         userService.save(mateus, mateusProfile, List.of(Profession.builder().name("Software Engineer").profile(mateusProfile).build()));
 
         var joao = Users.builder()
-            .username("joao.silva@gmail.om")
+            .username("joao.silva@gmail.com")
             .password("joao")
             .role("USER")
             .build();
@@ -77,7 +75,7 @@ public class NoCurriculumApplication implements AppShellConfigurator, CommandLin
         userService.save(joao, joaoProfile, List.of(Profession.builder().name("DevOps Engineer").profile(joaoProfile).build()));
 
         var maria = Users.builder()
-            .username("maria.eduarda@gmail.om")
+            .username("maria.eduarda@gmail.com")
             .password("maria")
             .role("USER")
             .build();

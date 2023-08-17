@@ -3,7 +3,6 @@ package br.ufg.nocurriculum.views;
 import br.ufg.nocurriculum.entities.*;
 import br.ufg.nocurriculum.services.DefaultProfessionService;
 import br.ufg.nocurriculum.services.UserService;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -14,7 +13,6 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.textfield.EmailField;
@@ -37,9 +35,9 @@ import static br.ufg.nocurriculum.extensions.ComponentBuilder.$;
 @PageTitle("Cadastro | No-curriclum")
 public class SignUpView extends VerticalLayout {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(SignUpView.class);
     @Serial
     private static final long serialVersionUID = 7277297461948943231L;
+    private final static Logger LOGGER = LoggerFactory.getLogger(SignUpView.class);
 
     private final UserService userService;
 

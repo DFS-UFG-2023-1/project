@@ -26,10 +26,10 @@ public class Users {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "username")
     private Set<Authorities> authorities;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user")
     private UserProfile profile;
 
     private transient String role;

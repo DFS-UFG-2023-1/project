@@ -1,7 +1,7 @@
 package br.ufg.nocurriculum.services;
 
 import br.ufg.nocurriculum.entities.Profession;
-import br.ufg.nocurriculum.repositories.ProfessionRepository;
+import br.ufg.nocurriculum.repositories.jpa.ProfessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,5 +17,9 @@ public class ProfessionService {
 
     public void save(List<Profession> professions) {
         repository.saveAll(professions);
+    }
+
+    public void deleteAll(List<Profession> professions) {
+        repository.deleteAll(professions);
     }
 }

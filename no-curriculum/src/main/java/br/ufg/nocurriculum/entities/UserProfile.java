@@ -1,15 +1,12 @@
 package br.ufg.nocurriculum.entities;
 
-import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,14 +38,26 @@ public class UserProfile {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
     private List<Profession> professions;
-//
-//    @Type(ListArrayType.class)
-//    @Column(name = "skills", columnDefinition = "text[]")
-//    private Set<String> skills;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "visible")
     private boolean visible = true;
 
+    public String getPhone() {
+        if (phone == null || phone.isBlank()) {
+            return "";
+        }
+        return phone;
+    }
+
+    public String getDescription() {
+        if (description == null || description.isBlank()) {
+            return "";
+        }
+        return description;
+    }
 }

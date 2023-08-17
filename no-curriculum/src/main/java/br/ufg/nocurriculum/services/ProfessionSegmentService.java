@@ -1,22 +1,21 @@
 package br.ufg.nocurriculum.services;
 
 import br.ufg.nocurriculum.entities.ProfessionSegmentCount;
-import br.ufg.nocurriculum.repositories.ProfessionSegmentRepository;
+import br.ufg.nocurriculum.repositories.jdbc.ProfessionSegmentJdbcRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProfessionSegmentService {
 
-    private final ProfessionSegmentRepository repository;
+    private final ProfessionSegmentJdbcRepository repository;
 
-    public ProfessionSegmentService(ProfessionSegmentRepository repository) {
+    public ProfessionSegmentService(ProfessionSegmentJdbcRepository repository) {
         this.repository = repository;
     }
 
-    public List<ProfessionSegmentCount> getAllGroupedByName() {
-        return repository.findAllGroupedByName();
+    public List<ProfessionSegmentCount> countingTalentsBySegment() {
+        return repository.countingTalentsBySegment();
     }
 }

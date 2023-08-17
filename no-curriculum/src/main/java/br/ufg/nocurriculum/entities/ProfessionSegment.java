@@ -1,12 +1,10 @@
 package br.ufg.nocurriculum.entities;
 
-import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -33,6 +31,6 @@ public class ProfessionSegment {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "professionSegment", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "professionSegment")
     private List<DefaultProfession> defaultProfessions;
 }

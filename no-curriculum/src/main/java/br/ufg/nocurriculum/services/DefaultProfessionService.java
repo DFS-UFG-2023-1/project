@@ -1,7 +1,7 @@
 package br.ufg.nocurriculum.services;
 
 import br.ufg.nocurriculum.entities.DefaultProfession;
-import br.ufg.nocurriculum.repositories.DefaultProfessionRepository;
+import br.ufg.nocurriculum.repositories.jpa.DefaultProfessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

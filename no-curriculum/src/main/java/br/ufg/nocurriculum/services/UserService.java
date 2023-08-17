@@ -40,4 +40,10 @@ public class UserService {
         professionService.save(professions);
     }
 
+    public void save(UserProfile profile, List<Profession> professions) {
+        userProfileService.save(profile);
+        professionService.save(professions);
+    }
+
+
 }
